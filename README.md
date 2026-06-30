@@ -23,6 +23,32 @@ MediMind is an AI-powered healthcare platform designed to streamline doctor-pati
 4. Run `mvn clean install`.
 5. Start the application.
 
+
+## Module 1:  Foundation & Data Schema Design
+In a Healthcare system, the schema must handle three distinct personas (Admin, Doctor, Patient) while ensuring high data integrity for appointments.
+
+• **Identity Management:** A central User entity handles authentication (email, password, roles).
+
+• **Profile Separation:** Since Doctors have unique attributes (specialization, bio) and Patients have others (medical history), we use a One-to-One relationship between User and their respective Profile entities.
+
+• **Scheduling Logic:** Appointment is the central "transactional" entity. It links a Patient, a Doctor, and a specific time slot.
+
+• **AI Metadata:** Instead of cluttering the Appointment table, summaries (Pre-visit and Post-visit) can be stored as JSON types or separate linked tables to keep the main table "lean."
+
+
+## Module 2: Security & Authentication (JWT + OAuth2)
+In a healthcare application, security is not just a feature; it is a legal requirement (like HIPAA compliance). Module 2 handles Identity and Access.
+
+• **Authentication:** "Who are you?" (Handled by JWT Login or Google OAuth2).
+
+• **Authorization:** "What are you allowed to do?" (Handled by Role-Based Access Control - RBAC). 
+- Patients can book appointments but cannot see other patients' records.
+- Doctors can see their own appointments and write notes.
+- Admins can manage doctor profiles.
+
+• **Statelessness:** We use JWT (JSON Web Tokens) so the server doesn't have to remember every logged-in user in its memory (RAM). This makes the app faster and easier to scale.
+
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 
