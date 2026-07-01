@@ -72,6 +72,15 @@ Since app creates calendar events even when the doctor or patient is offline, we
 - Storage: We will create a GoogleToken entity linked to our User to store these.
 
 
+
+## Module 4: Booking Engine & Concurrency Control
+
+This is the "Brain" of Medimind. It transforms a doctor's raw working hours (e.g., 9:00 AM – 5:00 PM) into bookable 30-minute intervals while ensuring no two patients can take the same slot.
+
+- Slot Generation: The system takes workingHoursStart and workingHoursEnd, subtracts existing Appointments and DoctorLeave, and presents the remaining "Free" slots.
+- Concurrency Challenge: If two patients click "Book" at 10:00:01 AM for the same 2:00 PM slot, the system must ensure only one succeeds and the other gets a "Slot already taken" error.
+- Leave Integration: If a doctor marks a day as "Leave," the engine must immediately invalidate all slots for that day and flag existing bookings for cancellation.
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 
