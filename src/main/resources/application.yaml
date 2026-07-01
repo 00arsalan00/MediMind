@@ -44,13 +44,21 @@ spring:
           google:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_CLIENT_SECRET}
+            redirect-uri: "{baseUrl}/api/oauth/google/callback"
+            authorization-grant-type: authorization_code
             scope:
               - https://www.googleapis.com/auth/calendar
               - https://www.googleapis.com/auth/calendar.events
+              - email
+              - profile
+
+app:
+  oauth2:
+    authorized-redirect-uri: http://localhost:3000/oauth2/redirect
 
 jwt:
   secret: ${JWT_SECRET}
-  access-token-expiration: 1500000
+  access-token-expiration: 3600000
   refresh-token-expiration: 604800000
 
 

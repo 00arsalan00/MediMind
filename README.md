@@ -49,6 +49,29 @@ In a healthcare application, security is not just a feature; it is a legal requi
 • **Statelessness:** We use JWT (JSON Web Tokens) so the server doesn't have to remember every logged-in user in its memory (RAM). This makes the app faster and easier to scale.
 
 
+
+## Module 3: Google Calendar Integration
+
+**Google Cloud Console Setup (The "Google System"):**
+1. Create a Project: Go to the Google Cloud Console, and create a new project named "Medimind".
+2. Enable APIs: Search for "Google Calendar API" and click Enable.
+3. Configure OAuth Consent Screen:
+- Choose External (unless you have a Google Workspace organization).
+- Add Scopes: You must add https://www.googleapis.com/auth/calendar and https://www.googleapis.com/auth/calendar.events.
+- Add Test Users: Add your own Gmail address so you can test it before the app is verified.
+4. Create Credentials:
+- Click Create Credentials -> OAuth Client ID.
+- Select Web Application.
+- Authorized Redirect URIs: Add http://localhost:8080/login/oauth2/code/google.
+5. Get Keys: Copy your Client ID and Client Secret into your .env or application.yaml file.
+
+
+Since app creates calendar events even when the doctor or patient is offline, we cannot just log them in once. We must perform an "Incremental Authorization."
+- Offline Access: We must request access_type=offline.
+- Refresh Token: Google will give us a Refresh Token (which lasts forever) and an Access Token (which lasts 1 hour).
+- Storage: We will create a GoogleToken entity linked to our User to store these.
+
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 
